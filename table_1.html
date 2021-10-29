@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+    <title>First table page</title>
+</head>
+<body>
+    <header>
+        <h1><a href="home.html" title="Back to home page. Select new algos to compare or adjust array size">SortComparer Home</a></h1>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="downloads.html" title = "Download pdf explanations of each sorting algo here">Download Algo Explanations</a></li>
+                <li><a href="about.html" title="Learn more about this page here">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="compare_title">
+        <h2>Comparison and Visualization</h2>
+    </div>
+    <div id="table_container">
+        <table>
+            <tr>
+                <th></th>
+                <th>Insertion Sort</th>
+                <th>Merge Sort</th>
+            </tr>
+            <!-- <tr>
+                <td>time taken</td>
+                <td></td>
+                <td></td>
+            </tr> -->
+            <tr>
+                <td>animated visualizations</td>
+                <td><img class="gif" src="pictures/3m00apvur6vmr44yjq1a.gif" alt="first_gif"/></td>
+                <td><img class="gif" src="pictures/CornyThickGordonsetter-size_restricted.gif" alt="second_gif"/></td>
+            </tr>
+            <tr>
+                <td>pictures of iterations</td>
+                <td><img class="gif" src="pictures/insertion_sort.PNG" alt="insertion_pic"/></td>
+                <td><img class="gif" src="pictures/merge_sort.PNG" alt="merge_pic"/></td>
+            </tr>
+            <tr>
+                <td>text summaries</td>
+                <td><div class="scrollbox">Insertion sort is a simple sorting algorithm that works similar 
+                    to the way you sort playing cards in your hands. 
+                    The array is virtually split into a sorted and an unsorted part. Values from the unsorted part are picked and placed at the correct position in the sorted part.
+                    Algorithm 
+                    To sort an array of size n in ascending order: 
+                    1: Iterate from arr[1] to arr[n] over the array. 
+                    2: Compare the current element (key) to its predecessor. 
+                    3: If the key element is smaller than its predecessor, compare it to the elements before. Move the greater elements one position up to make space for the swapped element.</div></td>
+                <td><div class="scrollbox">Like QuickSort, Merge Sort is a Divide and Conquer algorithm.
+                    It divides the input array into two halves, calls itself for the two halves, 
+                    and then merges the two sorted halves. The merge() function is used for merging two halves. 
+                    The merge(arr, l, m, r) is a key process that assumes that arr[l..m] and arr[m+1..r] are sorted and merges the two sorted sub-arrays into one. 
+                    See the following C implementation for details.</div></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

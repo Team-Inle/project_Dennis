@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+    <title>SortComparer Home Page</title>
+</head>
+<body>
+    <header>
+        <h1>SortComparer</h1>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="downloads.html" title = "Download pdf explanations of each sorting algo here">Download Algo Explanations</a></li>
+                <li><a href="about.html" title="Learn more about this page here">About</a></li>
+            </ul>
+        </nav>
+    </header>
+        <div id="instructions">
+            <ol id="instructions_list">
+                <li>Select two algos from the options below to compare and visualize</li>
+                <li>Choose an array size (20 - 10,000 elements) with the slider</li>
+                <li>Click "Enter" at the bottom of the page to see side by side animations and algo summaries</li>
+            </ol>
+        </div>
+
+        <div id="reset_container">
+            <button type="button" title="Unselects chosen sort algorithms" onclick="reset_checkboxes()">Reset Choices</button>
+        </div>
+    <div id="algo_choices">
+        <ul>
+            <input type="checkbox" id="selection_sort" value ="selection_sort">
+            <label for="selection_sort">Selection Sort</label><br>
+            <input type="checkbox" id="bubble_sort" value ="bubble_sort">
+            <label for="bubble_sort">Bubble Sort</label><br>
+            <input type="checkbox" id="insertion_sort" value ="insertion_sort">
+            <label for="insertion_sort">Insertion Sort</label><br>
+            <input type="checkbox" id="quick_sort" value ="quick_sort">
+            <label for="quick_sort">Quick Sort</label><br>
+            <input type="checkbox" id="merge_sort" value ="merge_sort">
+            <label for="merge_sort">Merge Sort</label><br>
+            <input type="checkbox" id="heap_sort" value ="heap_sort">
+            <label for="heap_sort">Heap Sort</label><br>
+        </ul>
+    </div>
+
+    <div id="slide_container">
+        <ul>
+            <input type="range" value="5000" min="20" max="10000" oninput="this.nextElementSibling.value = this.value">
+            <output>5000</output>
+        </ul>
+    </div>
+
+    <div id="enter_container">
+        <button type="button" onclick="window.location.href='table_1.html'">Enter</button>
+    </div>
+</body>
+</html>
