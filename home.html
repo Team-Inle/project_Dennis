@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="index.js"></script>
     <title>SortComparer Home Page</title>
+
+   
 </head>
 <body>
     <header>
@@ -25,25 +26,29 @@
                 <li>Click "Enter" at the bottom of the page to see side by side animations and algo summaries</li>
             </ol>
         </div>
-
+<!-- 
         <div id="reset_container">
             <button type="button" title="Unselects chosen sort algorithms" onclick="reset_checkboxes()">Reset Choices</button>
-        </div>
+        </div> -->
+
+
     <div id="algo_choices">
         <ul>
-            <input type="checkbox" id="selection_sort" value ="selection_sort">
+            <input class="checkbox" type="checkbox" id="selection_sort" name ="selection_sort">
             <label for="selection_sort">Selection Sort</label><br>
-            <input type="checkbox" id="bubble_sort" value ="bubble_sort">
+            <input class="checkbox" type="checkbox" id="bubble_sort" name ="bubble_sort">
             <label for="bubble_sort">Bubble Sort</label><br>
-            <input type="checkbox" id="insertion_sort" value ="insertion_sort">
+            <input class="checkbox" type="checkbox" id="insertion_sort" name ="insertion_sort">
             <label for="insertion_sort">Insertion Sort</label><br>
-            <input type="checkbox" id="quick_sort" value ="quick_sort">
+            <input class="checkbox" type="checkbox" id="quick_sort" name ="quick_sort">
             <label for="quick_sort">Quick Sort</label><br>
-            <input type="checkbox" id="merge_sort" value ="merge_sort">
+            <input class="checkbox" type="checkbox" id="merge_sort" name ="merge_sort">
             <label for="merge_sort">Merge Sort</label><br>
-            <input type="checkbox" id="heap_sort" value ="heap_sort">
+            <input class="checkbox" type="checkbox" id="heap_sort" name ="heap_sort">
             <label for="heap_sort">Heap Sort</label><br>
         </ul>
+
+
     </div>
 
     <div id="slide_container">
@@ -53,8 +58,11 @@
         </ul>
     </div>
 
-    <div id="enter_container">
-        <button type="button" onclick="window.location.href='table_1.html'">Enter</button>
+    <div id="enter_container">s
+        <!-- <button type="button" onclick="window.location.href='tables.html'">Enter</button> -->
+        <button type="button" id="enterButton">Enter</button>
     </div>
+
+    <script src="home.js"></script>
 </body>
 </html>
