@@ -105,8 +105,8 @@ BubbleSort();
 
 const fetchScrollText = async() => {
     try {
-        const res = await axios.get('microservice-dipan.herokuapp.com/scrape?algorithm=bubble-sort')
-        const text = res.description;
+        const res = await axios.get('https://microservice-dipan.herokuapp.com/scrape?algorithm=bubble-sort')
+        const text = res.data.description;
         return text;
     } catch(e) {
         console.log('error', e)
