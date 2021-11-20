@@ -33,13 +33,13 @@ if (chosenAlgo == 'bubble_sort') {
   
 // Function to generate the array of blocks
 function generatearray() {
-    for (var i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
   
         // return random value between 1 and 100
-        var value = Math.ceil(Math.random() * 100);
+        let value = Math.ceil(Math.random() * 100);
   
         // create div element
-        var array_ele = document.createElement("div");
+        let array_ele = document.createElement("div");
   
 
         array_ele.classList.add("block");
@@ -50,9 +50,11 @@ function generatearray() {
   
         // // Creating label element for displaying 
         // // size of particular block
-        var array_ele_label = document.createElement("label");
+        let array_ele_label = document.createElement("label");
         array_ele_label.classList.add("block_id");
         array_ele_label.innerText = value;
+        
+        // array_ele_label.innerHTML.fontcolor = 'white';
   
         // Appending created elements to index.html 
         array_ele.appendChild(array_ele_label);
@@ -98,7 +100,6 @@ async function BubbleSort(delay = 100) {
                 }, delay)
             );
   
-            console.log("run");
             var value1 = Number(blocks[j].childNodes[0].innerHTML);
             var value2 = Number(blocks[j + 1].childNodes[0].innerHTML);
   
@@ -198,13 +199,6 @@ async function SelectionSort(delay = 300) {
     
       let height = blocks[i].style.height;
        
-    //   // For selecting section having id "ele"
-    //   var barval=document.getElementById("ele")
-    
-    //   // For dynamically Updating the selected element
-    //     barval.innerHTML=
-    //     `<h3>Element Selected is :${key}</h3>`;
-     
       blocks[i].style.backgroundColor = "darkblue";
         
       await new Promise((resolve) =>
@@ -253,6 +247,35 @@ async function SelectionSort(delay = 300) {
     }
   }
 
+  function MergeSort(){
+    let blocks = document.querySelectorAll('.block')
+    MergeSortHelper(blocks)
+  }
+
+  async function MergeSortHelper(blockArr){
+    let len = block_arr.length
+    if (len<2){
+      return
+    }
+    let mid = Math.floor(len/2)
+    const leftArr = [];
+    const rightArr = [];
+    for (let i = 0; i <= mid - 1; i++){
+      leftArr.push(blockArr[i].childNodes[0].innerHTML)
+    }
+    for (let i = mid; i <= len - 1; i++){
+      rightArr.push(blockArr[i].childNodes[0].innerHTML)
+    await MergeSortHelper(leftArr);
+    await MergeSortHelper(rightArr);
+    await Merge(leftArr, rightArr)
+    }
+  }
+
+  async function Merge(left, right){
+    
+  }
+  
+
 
 const fetchScrollText = async() => {
     try {
@@ -282,8 +305,7 @@ const addScrollText = async() => {
 addScrollText();
 
 
-
-
 // var resetValue = null;
 // // reset chosenAlgo variable to null
 // localStorage.setItem("chosenAlgo", resetValue);
+
