@@ -23,7 +23,8 @@ if (chosenAlgo == 'bubble_sort') {
 } else if (chosenAlgo == 'quick_sort') {
     queryParam = 'quick-sort'
 } else if (chosenAlgo == 'merge_sort') {
-    queryparam = 'merge-sort'
+    queryParam = 'merge-sort';
+    MergeSort();
 }
 
 
@@ -44,38 +45,43 @@ function generatearray() {
 
         array_ele.classList.add("block");
   
-        // Adding style to div
         array_ele.style.height = `${value * 3}px`;
         array_ele.style.transform = `translate(${i * 30}px)`;
+
+
+
+        array_ele.innerText = value;
+    
   
-        // // Creating label element for displaying 
-        // // size of particular block
-        let array_ele_label = document.createElement("label");
-        array_ele_label.classList.add("block_id");
-        array_ele_label.innerText = value;
+        // create label element for displaying 
+        // size of particular block
+
+        // let array_ele_label = document.createElement("label");
+        // array_ele_label.classList.add("block_id");
+        // array_ele_label.innerText = value;
         
-        // array_ele_label.innerHTML.fontcolor = 'white';
   
-        // Appending created elements to index.html 
-        array_ele.appendChild(array_ele_label);
+        // append elements to index.html 
+
+        // array_ele.appendChild(array_ele_label);
         container.appendChild(array_ele);
     }
 }
   
 // Promise to swap two blocks
-function swap(el1, el2) {
+function swap(block1, block2) {
     return new Promise((resolve) => {
   
-        // For exchanging styles of two blocks
-        var temp = el1.style.transform;
-        el1.style.transform = el2.style.transform;
-        el2.style.transform = temp;
+        // exchange styles of two blocks
+        let temp = block1.style.transform;
+        block1.style.transform = block2.style.transform;
+        block2.style.transform = temp;
   
         window.requestAnimationFrame(function() {
   
-            // For waiting for .25 sec
+            // wait for 250 ms to continue 
             setTimeout(() => {
-                container.insertBefore(el2, el1);
+                container.insertBefore(block2, block1);
                 resolve();
             }, 250);
         });
@@ -100,8 +106,11 @@ async function BubbleSort(delay = 100) {
                 }, delay)
             );
   
-            var value1 = Number(blocks[j].childNodes[0].innerHTML);
-            var value2 = Number(blocks[j + 1].childNodes[0].innerHTML);
+            // var value1 = Number(blocks[j].childNodes[0].innerHTML);
+            // var value2 = Number(blocks[j + 1].childNodes[0].innerHTML);
+
+            let value1 = Number(blocks[j].innerHTML);
+            let value2 = Number(blocks[j+1].innerHTML);
   
             // compare values
             if (value1 > value2) {
@@ -136,16 +145,16 @@ async function SelectionSort(delay = 300) {
         // jth bar is red
         blocks[j].style.backgroundColor = "red";
           
-        // set 300 ms delay
+        // set 200 ms delay
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 300)
+          }, 200)
         );
      
-        let val1 = parseInt(blocks[j].childNodes[0].innerHTML);
+        let val1 = parseInt(blocks[j].innerHTML);
      
-        let val2 = parseInt(blocks[min_idx].childNodes[0].innerHTML);
+        let val2 = parseInt(blocks[min_idx].innerHTML);
           
 
         if (val1 < val2) {
@@ -163,12 +172,12 @@ async function SelectionSort(delay = 300) {
       }
     
       // swap ith and (min_idx)th block
-      var temp1 = blocks[min_idx].style.height;
-      var temp2 = blocks[min_idx].childNodes[0].innerText;
+      let temp1 = blocks[min_idx].style.height;
+      let temp2 = blocks[min_idx].innerText;
       blocks[min_idx].style.height = blocks[i].style.height;
       blocks[i].style.height = temp1;
-      blocks[min_idx].childNodes[0].innerText = blocks[i].childNodes[0].innerText;
-      blocks[i].childNodes[0].innerText = temp2;
+      blocks[min_idx].innerText = blocks[i].innerText;
+      blocks[i].innerText = temp2;
         
       await new Promise((resolve) =>
         setTimeout(() => {
@@ -195,35 +204,33 @@ async function SelectionSort(delay = 300) {
       let j = i - 1;
     
       let key = 
-      parseInt(blocks[i].childNodes[0].innerHTML);
+      parseInt(blocks[i].innerHTML);
     
       let height = blocks[i].style.height;
-       
       blocks[i].style.backgroundColor = "darkblue";
         
       await new Promise((resolve) =>
       setTimeout(() => {
         resolve();
-      }, 600)
+      }, 300)
     );
     
-      // For placing selected element at its correct position 
-      while (j >= 0 && parseInt(blocks[j].childNodes[0].innerHTML) > key) {
+      while (j >= 0 && parseInt(blocks[j].innerHTML) > key) {
           
         // jth bar is darkblue
         blocks[j].style.backgroundColor = "darkblue";
           
         // swap jth and (j+1)th element
         blocks[j + 1].style.height = blocks[j].style.height;
-        blocks[j + 1].childNodes[0].innerText = 
-        blocks[j].childNodes[0].innerText;
+        blocks[j + 1].innerText = 
+        blocks[j].innerText;
     
         j = j - 1;
     
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 300)
+          }, 200)
         );
           
         // turn sorted portion lightgreen
@@ -234,12 +241,12 @@ async function SelectionSort(delay = 300) {
     
       // move selected element to correct position
       blocks[j + 1].style.height = height;
-      blocks[j + 1].childNodes[0].innerHTML = key;
+      blocks[j + 1].innerHTML = key;
          
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve();
-        }, 300)
+        }, 200)
       );
         
       // Provide light green color to the ith bar
@@ -249,34 +256,68 @@ async function SelectionSort(delay = 300) {
 
   function MergeSort(){
     let blocks = document.querySelectorAll('.block')
-    MergeSortHelper(blocks)
+    let numArray = [];
+
+    // extract all the number values from the block labels
+    for (let i=0; i<blocks.length; i++){
+      numArray.push(parseInt(blocks[i].innerText))
+    }
+    MergeSortHelper(numArray);
   }
 
-  async function MergeSortHelper(blockArr){
-    let len = block_arr.length
+  async function MergeSortHelper(numArr){
+    let len = numArr.length
     if (len<2){
       return
     }
     let mid = Math.floor(len/2)
-    const leftArr = [];
-    const rightArr = [];
+    let leftArr = [];
+    let rightArr = [];
     for (let i = 0; i <= mid - 1; i++){
-      leftArr.push(blockArr[i].childNodes[0].innerHTML)
+      leftArr.push(numArr[i])
     }
-    for (let i = mid; i <= len - 1; i++){
-      rightArr.push(blockArr[i].childNodes[0].innerHTML)
-    await MergeSortHelper(leftArr);
-    await MergeSortHelper(rightArr);
-    await Merge(leftArr, rightArr)
+    for (let j = mid; j <= len - 1; j++){
+      rightArr.push(numArr[j])
     }
-  }
+    MergeSortHelper(leftArr);
+    MergeSortHelper(rightArr);
+    await Merge(leftArr, rightArr);
+    }
 
   async function Merge(left, right){
-    
+    let blocks = document.querySelectorAll('.block')
+    let nL = left.length;
+    let nR = right.length;
+    let i=0; let j=0; let k=0;
+    while (i < nL && j < nR){
+
+      if (left[i] <= right[j]){
+        //instead of overwriting to outarray, 
+        //manipulate blocks themselves
+        blocks[k].style.height = `${left[i] * 3}px`;
+        blocks[k].innerText = left[i];
+        i++; k++;
+
+      } else {
+        blocks[k].style.height = `${right[j] * 3}px`;
+        blocks[k].innerText = right[j];
+        j++; k++;
+      } //take care of the leftovers
+    } //case where there are leftovers from the left array
+    while (i < nL){
+      blocks[k].style.height = `${left[i] * 3}px`;
+      blocks[k].innerText = left[i];
+      i++; k++
+    } // case where there are leftovers from the right array
+    while (j < nR) {
+      blocks[k].style.height = `${right[i] * 3}px`
+      blocks[k].innerText = right[j];
+      j++; k++;
+    }
   }
   
 
-
+// code to grab text from Dipan's microservice 
 const fetchScrollText = async() => {
     try {
         const res = await axios.get(`https://microservice-dipan.herokuapp.com/scrape?algorithm=` + queryParam)
@@ -288,7 +329,7 @@ const fetchScrollText = async() => {
     }
 }
 
-
+// code to push fetched scrolltext into scrollbox
 const addScrollText = async() => {
     try {
         const ScrollText = await fetchScrollText();
