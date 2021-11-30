@@ -1,3 +1,5 @@
+
+
 // const chosenAlgo = localStorage.getItem("chosenAlgo");
 const chosenAlgo = localStorage.chosenAlgo
 console.log(chosenAlgo)
@@ -222,8 +224,7 @@ async function SelectionSort(delay = 300) {
           
         // swap jth and (j+1)th element
         blocks[j + 1].style.height = blocks[j].style.height;
-        blocks[j + 1].innerText = 
-        blocks[j].innerText;
+        blocks[j + 1].innerText = blocks[j].innerText;
     
         j = j - 1;
     
@@ -254,68 +255,67 @@ async function SelectionSort(delay = 300) {
     }
   }
 
+
   function MergeSort(){
-    let blocks = document.querySelectorAll('.block')
-    let numArray = [];
-
-    // extract all the number values from the block labels
-    for (let i=0; i<blocks.length; i++){
-      numArray.push(parseInt(blocks[i].innerText))
-    }
-    MergeSortHelper(numArray);
+    let blocksArray = document.querySelectorAll('.block');
+    MergeSortHelper(blocksArray, 0, blocksArray.length - 1)
   }
 
-  async function MergeSortHelper(numArr){
-    let len = numArr.length
-    if (len<2){
-      return
-    }
-    let mid = Math.floor(len/2)
-    let leftArr = [];
-    let rightArr = [];
-    for (let i = 0; i <= mid - 1; i++){
-      leftArr.push(numArr[i])
-    }
-    for (let j = mid; j <= len - 1; j++){
-      rightArr.push(numArr[j])
-    }
-    MergeSortHelper(leftArr);
-    MergeSortHelper(rightArr);
-    await Merge(leftArr, rightArr);
-    }
 
-  async function Merge(left, right){
-    let blocks = document.querySelectorAll('.block')
-    let nL = left.length;
-    let nR = right.length;
-    let i=0; let j=0; let k=0;
-    while (i < nL && j < nR){
+  function MergeSortHelper(arr, left, right){
+    if (left < right){
 
-      if (left[i] <= right[j]){
-        //instead of overwriting to outarray, 
-        //manipulate blocks themselves
-        blocks[k].style.height = `${left[i] * 3}px`;
-        blocks[k].innerText = left[i];
-        i++; k++;
-
-      } else {
-        blocks[k].style.height = `${right[j] * 3}px`;
-        blocks[k].innerText = right[j];
-        j++; k++;
-      } //take care of the leftovers
-    } //case where there are leftovers from the left array
-    while (i < nL){
-      blocks[k].style.height = `${left[i] * 3}px`;
-      blocks[k].innerText = left[i];
-      i++; k++
-    } // case where there are leftovers from the right array
-    while (j < nR) {
-      blocks[k].style.height = `${right[i] * 3}px`
-      blocks[k].innerText = right[j];
-      j++; k++;
+      // let mid = left + Math.floor((right - 1)/2);
+      let mid = Math.floor((left+right)/2)
+      MergeSortHelper(arr, left, mid);
+      MergeSortHelper(arr, mid+1, right);
+      Merge(arr, left, mid, right);
     }
   }
-  
+
+
+  // in place Merge function; no auxillary copy arrays needed
+  function Merge(arr, start, mid, end){
+    let start2 = mid + 1;
+
+    //if array is already merge sorted
+
+    // let val1 = parseInt(blocks[j].innerHTML);
+    if(parseInt(arr[mid].innerHTML)<= parseInt(arr[start2].innerHTML)){
+        return;
+    }
+    while(start<=mid && start2<=end){
+
+      // if elem at start less than elem at mid + 1, increment start ptr
+      if(parseInt(arr[start].innerHTML) <= parseInt(arr[start2].innerHTML)){
+        start += 1;
+
+      }else{
+        let value = arr[start2].innerText;
+        let index = start2;
+
+        //shift all elements between [start, start2) rightward by 1
+        while (index!=start){
+          arr[index].style.height = arr[index - 1].style.height;
+          arr[index].innerText = arr[index - 1].innerText;
+          // dec index until we reach start of section being merged
+          index -= 1;
+        }
+
+        // place block at start2 where block at start1 ptr used to be 
+        // by restyling block at 'start'
+        arr[start].innerText = value;
+        arr[start].style.height = `${value * 3}px`;
+
+        //increment all the ptrs
+        start += 1;
+        mid += 1;
+        start2 += 1;
+        
+      }
+    }
+  }
+
 
 // code to grab text from Dipan's microservice 
 const fetchScrollText = async() => {
@@ -346,7 +346,5 @@ const addScrollText = async() => {
 addScrollText();
 
 
-// var resetValue = null;
-// // reset chosenAlgo variable to null
-// localStorage.setItem("chosenAlgo", resetValue);
+
 
