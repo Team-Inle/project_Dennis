@@ -1,14 +1,16 @@
 
 
-// const chosenAlgo = localStorage.getItem("chosenAlgo");
+// get chosen algorithm from user input
 const chosenAlgo = localStorage.chosenAlgo
 console.log(chosenAlgo)
+
+// queryParam used to call microservice
 let queryParam = null
 
 var container = document.getElementById("array");
 
 
-generatearray();
+makeArray();
 
 
 
@@ -30,42 +32,23 @@ if (chosenAlgo == 'bubble_sort') {
 }
 
 
-
-
-
   
 // Function to generate the array of blocks
-function generatearray() {
+function makeArray() {
     for (let i = 0; i < 20; i++) {
   
-        // return random value between 1 and 100
+        //random value between 1 and 100
         let value = Math.ceil(Math.random() * 100);
   
-        // create div element
+        // create array element divs (i.e. blocks)
         let array_ele = document.createElement("div");
   
-
         array_ele.classList.add("block");
   
         array_ele.style.height = `${value * 3}px`;
         array_ele.style.transform = `translate(${i * 30}px)`;
-
-
-
         array_ele.innerText = value;
     
-  
-        // create label element for displaying 
-        // size of particular block
-
-        // let array_ele_label = document.createElement("label");
-        // array_ele_label.classList.add("block_id");
-        // array_ele_label.innerText = value;
-        
-  
-        // append elements to index.html 
-
-        // array_ele.appendChild(array_ele_label);
         container.appendChild(array_ele);
     }
 }
@@ -91,28 +74,24 @@ function swap(block1, block2) {
 }
   
 // async bubblesort
-async function BubbleSort(delay = 100) {
-    var blocks = document.querySelectorAll(".block");
+async function BubbleSort() {
+    let blocks = document.querySelectorAll(".block");
 
-    for (var i = 0; i < blocks.length; i += 1) {
-        for (var j = 0; j < blocks.length - i - 1; j += 1) {
+    for (let i = 0; i < blocks.length; i += 1) {
+        for (let j = 0; j < blocks.length - i - 1; j += 1) {
   
-            // change color of blocks currently being prepared
             blocks[j].style.backgroundColor = "blue";
             blocks[j + 1].style.backgroundColor = "blue";
   
-            // set 0.1 sec delay
+            // set 100 ms delay
             await new Promise((resolve) =>
                 setTimeout(() => {
                     resolve();
-                }, delay)
+                }, 100)
             );
-  
-            // var value1 = Number(blocks[j].childNodes[0].innerHTML);
-            // var value2 = Number(blocks[j + 1].childNodes[0].innerHTML);
 
-            let value1 = Number(blocks[j].innerHTML);
-            let value2 = Number(blocks[j+1].innerHTML);
+            let value1 = parseInt(blocks[j].innerHTML);
+            let value2 = parseInt(blocks[j+1].innerHTML);
   
             // compare values
             if (value1 > value2) {
@@ -147,18 +126,16 @@ async function SelectionSort(delay = 300) {
         // jth bar is red
         blocks[j].style.backgroundColor = "red";
           
-        // set 200 ms delay
+        // set 300 ms delay
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 200)
+          }, 300)
         );
      
         let val1 = parseInt(blocks[j].innerHTML);
-     
         let val2 = parseInt(blocks[min_idx].innerHTML);
           
-
         if (val1 < val2) {
           if (min_idx !== i) {
     
@@ -262,28 +239,35 @@ async function SelectionSort(delay = 300) {
   }
 
 
-  function MergeSortHelper(arr, left, right){
+  async function MergeSortHelper(arr, left, right){
     if (left < right){
 
-      // let mid = left + Math.floor((right - 1)/2);
       let mid = Math.floor((left+right)/2)
-      MergeSortHelper(arr, left, mid);
-      MergeSortHelper(arr, mid+1, right);
-      Merge(arr, left, mid, right);
+
+      await MergeSortHelper(arr, left, mid);
+      await MergeSortHelper(arr, mid+1, right);
+      await Merge(arr, left, mid, right);
+
+      for (let i=left; i<=right; i++){
+        arr[i].style.backgroundColor = 'green';
+      }
     }
   }
 
 
   // in place Merge function; no auxillary copy arrays needed
-  function Merge(arr, start, mid, end){
+  async function Merge(arr, start, mid, end){
     let start2 = mid + 1;
 
     //if array is already merge sorted
-
-    // let val1 = parseInt(blocks[j].innerHTML);
     if(parseInt(arr[mid].innerHTML)<= parseInt(arr[start2].innerHTML)){
         return;
     }
+
+    for (let i=start; i<=end; i++){
+      arr[i].style.backgroundColor = 'lightblue';
+    }
+
     while(start<=mid && start2<=end){
 
       // if elem at start less than elem at mid + 1, increment start ptr
@@ -296,12 +280,36 @@ async function SelectionSort(delay = 300) {
 
         //shift all elements between [start, start2) rightward by 1
         while (index!=start){
+
+          arr[index].style.backgroundColor = 'blue'
+
+
           arr[index].style.height = arr[index - 1].style.height;
           arr[index].innerText = arr[index - 1].innerText;
+
+          await new Promise((resolve) =>
+            setTimeout(() => {
+              resolve();
+            }, 200)
+          );
+
+          arr[index].style.backgroundColor = arr[index - 1].style.backgroundColor;
+
           // dec index until we reach start of section being merged
           index -= 1;
+
+          await new Promise((resolve) =>
+            setTimeout(() => {
+              resolve();
+            }, 200)
+          );
         }
 
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            resolve();
+          }, 200)
+        );
         // place block at start2 where block at start1 ptr used to be 
         // by restyling block at 'start'
         arr[start].innerText = value;
@@ -315,6 +323,8 @@ async function SelectionSort(delay = 300) {
       }
     }
   }
+
+
 
 
 // code to grab text from Dipan's microservice 

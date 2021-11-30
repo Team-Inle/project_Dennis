@@ -72,13 +72,7 @@ button:hover {
     display: inline;
 }
 
-/* .break {
-    flex-basis: 100%;
-    height: 0;
-    width: 100%
-  } */
 
-  /* style the list elements */
 #instructions {
     display: flex;
     justify-content: center;
