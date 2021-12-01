@@ -325,9 +325,21 @@ async function SelectionSort(delay = 300) {
   }
 
 
-  function QuickSort(){
+  async function QuickSort(){
     let blocksArray = document.querySelectorAll('.block');
-    QuickSortHelper(blocksArray, 0, blocksArray.length - 1)
+    await QuickSortHelper(blocksArray, 0, blocksArray.length - 1);
+
+    await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 300)
+      );
+
+    for (let i = 0; i<blocksArray.length; i++){
+      blocksArray[i].style.backgroundColor = 'green'
+    }
+
+    
   }
 
   
@@ -336,7 +348,11 @@ async function SelectionSort(delay = 300) {
       return
     }
     let pIndex = await Partition(array, start, end);
+
+    array[pIndex].style.backgroundColor = 'lightblue'
+
     await QuickSortHelper(array, start, pIndex - 1);
+
     await QuickSortHelper(array, pIndex + 1, end);
   }
 
@@ -344,6 +360,9 @@ async function SelectionSort(delay = 300) {
   async function Partition(array, start, end)
   {
     let pivotVal = parseInt(array[end].innerHTML);
+
+    array[end].style.backgroundColor = 'red'
+
     let pIndex = start;
 
     for(let i=start; i<end; i++)
@@ -374,6 +393,8 @@ async function SelectionSort(delay = 300) {
           resolve();
         }, 300)
       );
+
+      array[end].style.backgroundColor = 'gray'
 
       let temp1 = array[end].style.height;
       let temp2 = array[end].innerText;
