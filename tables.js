@@ -14,7 +14,8 @@ makeArray();
 
 
 
-// set query Param to fetch scrollText from Dipan's microservice
+// set query Param to fetch scrollText from Dipan's microservice,
+// then call sorting visualizer function
 if (chosenAlgo == 'bubble_sort') {
     queryParam = 'bubble-sort';
     BubbleSort();
@@ -25,7 +26,8 @@ if (chosenAlgo == 'bubble_sort') {
     queryParam = 'insertion-sort';
     InsertionSort();
 } else if (chosenAlgo == 'quick_sort') {
-    queryParam = 'quick-sort'
+    queryParam = 'quick-sort';
+    QuickSort();
 } else if (chosenAlgo == 'merge_sort') {
     queryParam = 'merge-sort';
     MergeSort();
@@ -323,6 +325,64 @@ async function SelectionSort(delay = 300) {
       }
     }
   }
+
+
+  function QuickSort(){
+    let blocksArray = document.querySelectorAll('.block');
+    QuickSortHelper(blocksArray, 0, blocksArray.length - 1)
+  }
+
+  
+  async function QuickSortHelper(array, start, end){
+    if (start >= end){
+      return
+    }
+    let pIndex = await Partition(array, start, end);
+    await QuickSortHelper(array, start, pIndex - 1);
+    await QuickSortHelper(array, pIndex + 1, end);
+  }
+
+
+  async function Partition(array, start, end)
+  {
+    let pivotVal = parseInt(array[end].innerHTML);
+    let pIndex = start;
+
+    for(let i=start; i<end; i++)
+    { 
+      if (parseInt(array[i].innerHTML) <= pivotVal)
+      { // swap array[i], array[pIndex] style.height and innerText
+
+        // let temp1 = blocks[min_idx].style.height;
+        // let temp2 = blocks[min_idx].innerText;
+        // blocks[min_idx].style.height = blocks[i].style.height;
+        // blocks[i].style.height = temp1;
+        // blocks[min_idx].innerText = blocks[i].innerText;
+        // blocks[i].innerText = temp2;
+
+        let temp1 = array[i].style.height;
+        let temp2 = array[i].innerText;
+        array[i].style.height = array[pIndex].style.height;
+        array[pIndex].style.height = temp1;
+        array[i].innerText = array[pIndex].innerText;
+        array[pIndex].innerText = temp2;
+
+        pIndex += 1;
+
+      }
+    } // swap array[pIndex], array[end]
+
+      let temp1 = array[end].style.height;
+      let temp2 = array[end].innerText;
+      array[end].style.height = array[pIndex].style.height;
+      array[pIndex].style.height = temp1;
+      array[end].innerText = array[pIndex].innerText;
+      array[pIndex].innerText = temp2;
+
+      return pIndex
+
+  }
+
 
 
 
