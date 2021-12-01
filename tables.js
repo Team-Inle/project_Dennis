@@ -95,18 +95,16 @@ async function BubbleSort() {
             let value1 = parseInt(blocks[j].innerHTML);
             let value2 = parseInt(blocks[j+1].innerHTML);
   
-            // compare values
             if (value1 > value2) {
                 await swap(blocks[j], blocks[j + 1]);
                 blocks = document.querySelectorAll(".block");
             }
   
-            // change color back
             blocks[j].style.backgroundColor = "gray";
             blocks[j + 1].style.backgroundColor = "gray";
         }
   
-        // color change to identify max found in current pass
+        // color change show max of pass
         blocks[blocks.length - i - 1]
                 .style.backgroundColor = "green";
     }
@@ -229,7 +227,7 @@ async function SelectionSort(delay = 300) {
         }, 200)
       );
         
-      // Provide light green color to the ith bar
+      // turn ith bar light green
       blocks[i].style.backgroundColor = " rgb(49, 226, 13)";
     }
   }
@@ -353,12 +351,11 @@ async function SelectionSort(delay = 300) {
       if (parseInt(array[i].innerHTML) <= pivotVal)
       { // swap array[i], array[pIndex] style.height and innerText
 
-        // let temp1 = blocks[min_idx].style.height;
-        // let temp2 = blocks[min_idx].innerText;
-        // blocks[min_idx].style.height = blocks[i].style.height;
-        // blocks[i].style.height = temp1;
-        // blocks[min_idx].innerText = blocks[i].innerText;
-        // blocks[i].innerText = temp2;
+        await new Promise((resolve) =>
+          setTimeout(() => {
+            resolve();
+          }, 300)
+        );
 
         let temp1 = array[i].style.height;
         let temp2 = array[i].innerText;
@@ -371,6 +368,12 @@ async function SelectionSort(delay = 300) {
 
       }
     } // swap array[pIndex], array[end]
+
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 300)
+      );
 
       let temp1 = array[end].style.height;
       let temp2 = array[end].innerText;
