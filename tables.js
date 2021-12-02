@@ -34,6 +34,34 @@ if (chosenAlgo == 'bubble_sort') {
 }
 
 
+addPic(chosenAlgo);
+
+// function that adds pics representing single iteration
+// to div below animation
+function addPic(algo){
+  const img = document.createElement("img");
+
+    if (algo == 'bubble_sort'){
+      img.src = "./pictures/bubble_sort.PNG"
+    }else if (algo == 'selection_sort'){
+      img.src = "./pictures/selection_sort.PNG"
+    }else if (algo == 'insertion_sort'){
+      img.src = "./pictures/insertion_sort.PNG"
+    }else if (algo == 'quick_sort'){
+      img.src = "./pictures/quick_sort.PNG"
+    }else if (algo == 'merge_sort'){
+      img.src = "./pictures/merge_sort.PNG"
+    }
+    const picDiv = document.createElement('div');
+    img.classList.add('img')
+    picDiv.appendChild(img);
+
+    if (algo == 'quick_sort'){
+      img.style.width = '35%'
+    }
+    document.body.append(picDiv);
+  }
+
   
 // Function to generate the array of blocks
 function makeArray() {
