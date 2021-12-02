@@ -2,7 +2,10 @@
 
 // get chosen algorithm from user input
 const chosenAlgo = localStorage.chosenAlgo
-console.log(chosenAlgo)
+console.log(chosenAlgo);
+
+const sizeInput = localStorage.sizeInput
+console.log(sizeInput);
 
 // queryParam used to call microservice
 let queryParam = null
@@ -10,8 +13,8 @@ let queryParam = null
 var container = document.getElementById("array");
 
 
-makeArray();
-
+// makeArray();
+makeArray(sizeInput);
 
 
 // set query Param to fetch scrollText from Dipan's microservice,
@@ -62,25 +65,24 @@ function addPic(algo){
     document.body.append(picDiv);
   }
 
+
+function makeArray(numElements) {
+  for (let i = 0; i < numElements; i++) {
+
+      //random value between 1 and 100
+      let value = Math.ceil(Math.random() * 100);
+
+      // create array element divs (i.e. blocks)
+      let array_ele = document.createElement("div");
+
+      array_ele.classList.add("block");
+
+      array_ele.style.height = `${value * 3}px`;
+      array_ele.style.transform = `translate(${i * 30}px)`;
+      array_ele.innerText = value;
   
-// Function to generate the array of blocks
-function makeArray() {
-    for (let i = 0; i < 20; i++) {
-  
-        //random value between 1 and 100
-        let value = Math.ceil(Math.random() * 100);
-  
-        // create array element divs (i.e. blocks)
-        let array_ele = document.createElement("div");
-  
-        array_ele.classList.add("block");
-  
-        array_ele.style.height = `${value * 3}px`;
-        array_ele.style.transform = `translate(${i * 30}px)`;
-        array_ele.innerText = value;
-    
-        container.appendChild(array_ele);
-    }
+      container.appendChild(array_ele);
+  }
 }
   
 // Promise to swap two blocks
