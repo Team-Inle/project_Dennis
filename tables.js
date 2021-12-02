@@ -85,26 +85,7 @@ function makeArray(numElements) {
   }
 }
   
-// Promise to swap two blocks
-function swap(block1, block2) {
-    return new Promise((resolve) => {
-  
-        // exchange styles of two blocks
-        let temp = block1.style.transform;
-        block1.style.transform = block2.style.transform;
-        block2.style.transform = temp;
-  
-        window.requestAnimationFrame(function() {
-  
-            // wait for 250 ms to continue 
-            setTimeout(() => {
-                container.insertBefore(block2, block1);
-                resolve();
-            }, 250);
-        });
-    });
-}
-  
+
 // async bubblesort
 async function BubbleSort() {
     let blocks = document.querySelectorAll(".block");
@@ -115,18 +96,32 @@ async function BubbleSort() {
             blocks[j].style.backgroundColor = "blue";
             blocks[j + 1].style.backgroundColor = "blue";
   
-            // set 100 ms delay
+            // set 300 ms delay
             await new Promise((resolve) =>
                 setTimeout(() => {
                     resolve();
-                }, 100)
+                }, 300)
             );
 
             let value1 = parseInt(blocks[j].innerHTML);
             let value2 = parseInt(blocks[j+1].innerHTML);
   
             if (value1 > value2) {
-                await swap(blocks[j], blocks[j + 1]);
+                // await swap(blocks[j], blocks[j + 1]);
+
+                await new Promise((resolve) =>
+                    setTimeout(() => {
+                        resolve();
+                    }, 300)
+                );
+                // perform swap of blocks[j] and blocks[j+1]
+                let temp1 = blocks[j].style.height;
+                let temp2 = blocks[j].innerText;
+                blocks[j].style.height = blocks[j+1].style.height;
+                blocks[j+1].style.height = temp1;
+                blocks[j].innerText = blocks[j+1].innerText;
+                blocks[j+1].innerText = temp2;
+
                 blocks = document.querySelectorAll(".block");
             }
   
@@ -160,7 +155,7 @@ async function SelectionSort(delay = 300) {
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 300)
+          }, 400)
         );
      
         let val1 = parseInt(blocks[j].innerHTML);
@@ -191,7 +186,7 @@ async function SelectionSort(delay = 300) {
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve();
-        }, 300)
+        }, 400)
       );
     
       // min-indexth bar turns blue
@@ -203,7 +198,7 @@ async function SelectionSort(delay = 300) {
     
   }
 
-  async function InsertionSort(delay = 600) {
+  async function InsertionSort() {
     let blocks = document.querySelectorAll(".block");
     
     // 0th bar is lightgreen
@@ -219,10 +214,10 @@ async function SelectionSort(delay = 300) {
       blocks[i].style.backgroundColor = "darkblue";
         
       await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, 300)
-    );
+        setTimeout(() => {
+          resolve();
+        }, 400)
+      );
     
       while (j >= 0 && parseInt(blocks[j].innerHTML) > key) {
           
@@ -238,7 +233,7 @@ async function SelectionSort(delay = 300) {
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 200)
+          }, 400)
         );
           
         // turn sorted portion lightgreen
@@ -254,7 +249,7 @@ async function SelectionSort(delay = 300) {
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve();
-        }, 200)
+        }, 400)
       );
         
       // turn ith bar light green
@@ -320,7 +315,7 @@ async function SelectionSort(delay = 300) {
           await new Promise((resolve) =>
             setTimeout(() => {
               resolve();
-            }, 200)
+            }, 250)
           );
 
           arr[index].style.backgroundColor = arr[index - 1].style.backgroundColor;
@@ -331,14 +326,14 @@ async function SelectionSort(delay = 300) {
           await new Promise((resolve) =>
             setTimeout(() => {
               resolve();
-            }, 200)
+            }, 250)
           );
         }
 
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 200)
+          }, 250)
         );
         // place block at start2 where block at start1 ptr used to be 
         // by restyling block at 'start'
@@ -403,7 +398,7 @@ async function SelectionSort(delay = 300) {
         await new Promise((resolve) =>
           setTimeout(() => {
             resolve();
-          }, 300)
+          }, 400)
         );
 
         let temp1 = array[i].style.height;
@@ -421,7 +416,7 @@ async function SelectionSort(delay = 300) {
       await new Promise((resolve) =>
         setTimeout(() => {
           resolve();
-        }, 300)
+        }, 400)
       );
 
       array[end].style.backgroundColor = 'gray'
